@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1078344019536",
+    "project_id": "shopapp-3a304",
+    "storage_bucket": "shopapp-3a304.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078344019536:android:d60751a34d75492e47ab55",
+        "android_client_info": {
+          "package_name": "ntu.huy.shopapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8h-gU_bQ4QOxvNHY0Vel8XlCgX1NGQaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
