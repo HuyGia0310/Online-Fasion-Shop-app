@@ -1,5 +1,6 @@
 package ntu.huy.shopapp.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.binding.titleTxt.setText(items.get(position).getTitle());
 
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
@@ -61,7 +62,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         return items.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         ViewholderCategoryBinding binding;
         public ViewHolder(ViewholderCategoryBinding binding) {
             super(binding.getRoot());

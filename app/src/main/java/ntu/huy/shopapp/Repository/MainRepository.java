@@ -12,27 +12,59 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import ntu.huy.shopapp.Domain.BannerModel;
 import ntu.huy.shopapp.Domain.CategoryModel;
 
 public class MainRepository {
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
     public LiveData<ArrayList<CategoryModel>> loadCategory(){
-        MutableLiveData<ArrayList<CategoryModel>> listData=new MutableLiveData<>();
-        DatabaseReference ref=firebaseDatabase.getReference("Category");
+        MutableLiveData<ArrayList<CategoryModel>> listData = new MutableLiveData<>();
+        DatabaseReference ref = firebaseDatabase.getReference("Category");
+
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<CategoryModel> list=new ArrayList<>();
-                for(DataSnapshot childSnapshot:snapshot.getChildren()){
-                    CategoryModel item=childSnapshot.getValue(CategoryModel.class);
-                    if (item != null) list.add(item);
+                ArrayList<CategoryModel> list = new ArrayList<>();
+                for(DataSnapshot childSnapshot : snapshot.getChildren()){
+                    CategoryModel item = childSnapshot.getValue(CategoryModel.class);
+                    if (item != null) {
+                        list.add(item);
+                    }
                 }
+                // --- SỬA LỖI Ở ĐÂY: Cập nhật dữ liệu vào LiveData ---
+                listData.setValue(list);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                // Nên log lỗi ra để dễ kiểm tra nếu Firebase bị từ chối quyền (Rules)
+            }
+        });
+        return listData;
+    }
 
+    public LiveData<ArrayList<BannerModel>> loadBanner(){
+        MutableLiveData<ArrayList<BannerModel>> listData = new MutableLiveData<>();
+        DatabaseReference ref = firebaseDatabase.getReference("Banner");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<BannerModel> list = new ArrayList<>();
+                for(DataSnapshot childSnapshot : snapshot.getChildren()){
+                    BannerModel item = childSnapshot.getValue(BannerModel.class);
+                    if (item != null) {
+                        list.add(item);
+                    }
+                }
+                // --- SỬA LỖI Ở ĐÂY: Cập nhật dữ liệu vào LiveData ---
+                listData.setValue(list);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Nên log lỗi ra để dễ kiểm tra nếu Firebase bị từ chối quyền (Rules)
             }
         });
         return listData;

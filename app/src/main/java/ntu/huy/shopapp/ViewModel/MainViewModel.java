@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 
+import ntu.huy.shopapp.Domain.BannerModel;
 import ntu.huy.shopapp.Domain.CategoryModel;
 import ntu.huy.shopapp.Repository.MainRepository;
 
@@ -13,5 +14,9 @@ public class MainViewModel extends ViewModel {
 
     public LiveData<ArrayList<CategoryModel>> loadCategory(){
         return repository.loadCategory();
+    }
+
+    public LiveData<ArrayList<BannerModel>> loadBanner(){
+        return repository.loadBanner();
     }
 }

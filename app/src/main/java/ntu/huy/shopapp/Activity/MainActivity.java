@@ -10,8 +10,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
+
+import java.util.ArrayList;
 
 import ntu.huy.shopapp.Adapter.CategoryAdapter;
+import ntu.huy.shopapp.Adapter.SliderAdapter;
+import ntu.huy.shopapp.Domain.BannerModel;
 import ntu.huy.shopapp.Domain.CategoryModel;
 import ntu.huy.shopapp.R;
 import ntu.huy.shopapp.ViewModel.MainViewModel;
@@ -28,9 +35,35 @@ public class MainActivity extends AppCompatActivity {
         binding=ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         viewModel=new MainViewModel();
+
         initCategory();
+        initSlider();
 
+    }
 
+    private void initSlider() {
+        binding.progressBarSLider.setVisibility(View.VISIBLE);
+        viewModel.loadBanner().observeForever(bannerModels ->{
+            if(bannerModels!=null && !bannerModels.isEmpty()){
+                banner(bannerModels);
+                binding.progressBarSLider.setVisibility(View.GONE);
+            }
+        } );
+
+        viewModel.loadBanner();
+    }
+
+    private void banner(ArrayList<BannerModel> bannerModels) {
+        binding.viewPagerSlider.setAdapter(new SliderAdapter(binding.viewPagerSlider,bannerModels));
+        binding.viewPagerSlider.setClipToPadding(false);
+        binding.viewPagerSlider.setClipChildren(false);
+        binding.viewPagerSlider.setOffscreenPageLimit(3);
+        binding.viewPagerSlider.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+
+        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
+        compositePageTransformer.addTransformer(new MarginPageTransformer(40));
+
+        binding.viewPagerSlider.setPageTransformer(compositePageTransformer);
     }
 
     private void initCategory() {
