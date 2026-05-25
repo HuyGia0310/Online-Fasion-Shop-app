@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import ntu.huy.shopapp.Domain.BannerModel;
 import ntu.huy.shopapp.Domain.CategoryModel;
+import ntu.huy.shopapp.Domain.ItemsModel;
 
 public class MainRepository {
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -69,4 +70,32 @@ public class MainRepository {
         });
         return listData;
     }
+
+
+    public LiveData<ArrayList<ItemsModel>> loadPopular(){
+        MutableLiveData<ArrayList<ItemsModel>> listData = new MutableLiveData<>();
+        DatabaseReference ref = firebaseDatabase.getReference("Items");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<ItemsModel> list = new ArrayList<>();
+                for(DataSnapshot childSnapshot : snapshot.getChildren()){
+                    ItemsModel item = childSnapshot.getValue(ItemsModel.class);
+                    if (item != null) {
+                        list.add(item);
+                    }
+                }
+                // --- SỬA LỖI Ở ĐÂY: Cập nhật dữ liệu vào LiveData ---
+                listData.setValue(list);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Nên log lỗi ra để dễ kiểm tra nếu Firebase bị từ chối quyền (Rules)
+            }
+        });
+        return listData;
+    }
+
 }

@@ -17,6 +17,7 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import java.util.ArrayList;
 
 import ntu.huy.shopapp.Adapter.CategoryAdapter;
+import ntu.huy.shopapp.Adapter.PopularAdapter;
 import ntu.huy.shopapp.Adapter.SliderAdapter;
 import ntu.huy.shopapp.Domain.BannerModel;
 import ntu.huy.shopapp.Domain.CategoryModel;
@@ -38,7 +39,22 @@ public class MainActivity extends AppCompatActivity {
 
         initCategory();
         initSlider();
+        initPopular();
 
+    }
+
+    private void initPopular() {
+        binding.progressBarPopular.setVisibility(View.VISIBLE);
+        viewModel.loadPopular().observeForever(itemsModels -> {
+            if(!itemsModels.isEmpty()){
+                binding.polularView.setLayoutManager(
+                    new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL,false));
+                binding.polularView.setAdapter(new PopularAdapter(itemsModels));
+                binding.polularView.setNestedScrollingEnabled(true);
+            }
+            binding.progressBarPopular.setVisibility(View.GONE);
+        });
+        viewModel.loadPopular();
     }
 
     private void initSlider() {
