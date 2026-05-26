@@ -47,6 +47,7 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.recyclerview)
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.ismaeldivita:chip-navigation-bar:1.4.0")
     implementation(libs.viewpager2)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

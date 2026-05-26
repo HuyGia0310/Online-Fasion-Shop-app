@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1 "
-    android:background="@color/white"
+    android:background="@color/lightGrey"
     tools:context=".Activity.MainActivity">
 
     <ScrollView
@@ -17,7 +17,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -88,11 +89,11 @@
 
                     android:drawableStart="@drawable/search_icon"
                     android:drawableEnd="@drawable/microphone"
-                    android:padding="10dp"
                     android:drawablePadding="10dp"
                     android:ems="10"
                     android:hint="Search..."
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:padding="10dp" />
 
                 <ImageView
                     android:id="@+id/imageView5"
@@ -192,4 +193,20 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
+
+    <com.ismaeldivita.chipnavigation.ChipNavigationBar
+        android:layout_width="match_parent"
+        android:id="@+id/bottomNavigation"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:padding="4dp"
+        app:cnb_menuResource="@menu/bottom_menu"
+        app:cnb_orientationMode="horizontal"
+        app:cnb_radius="50dp"
+        app:cnb_unselectedColor="@color/black"
+        app:cnb_iconColor="@color/white"
+        app:cnb_iconSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
